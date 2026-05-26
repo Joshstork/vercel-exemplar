@@ -14,7 +14,7 @@ export async function login(formData: FormData) {
     redirect('/login?error=Invalid+email+or+password')
   }
 
-  redirect('/')
+  redirect('/dashboard')
 }
 
 export async function signup(formData: FormData) {
@@ -34,7 +34,7 @@ export async function signup(formData: FormData) {
     redirect('/login?error=' + encodeURIComponent(error.message))
   }
 
-  redirect('/')
+  redirect('/dashboard')
 }
 
 export async function logout() {
