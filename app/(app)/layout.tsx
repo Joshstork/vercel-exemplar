@@ -17,7 +17,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const isAdmin = profile?.is_admin ?? false
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full flex-col md:flex-row">
       <Sidebar user={user} isAdmin={isAdmin} />
       <main className="flex-1 overflow-y-auto bg-zinc-50 dark:bg-zinc-950">
         {children}
