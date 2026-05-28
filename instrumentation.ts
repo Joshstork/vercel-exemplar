@@ -7,7 +7,7 @@ export async function register() {
     try {
       return await originalFetch(url, init)
     } catch (err) {
-      const cause = (err as { cause?: NodeJS.ErrnoException }).cause
+      const cause = (err as { cause?: NodeJS.ErrnoException & { address?: string; port?: number } }).cause
       if (cause?.code === 'ECONNREFUSED') {
         const addr = `${cause.address}:${cause.port}`
         const isSupabase =
