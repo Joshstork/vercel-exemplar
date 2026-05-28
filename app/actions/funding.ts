@@ -2,6 +2,7 @@
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/app/lib/supabase/server'
+import { triggerMatchScores } from '@/app/lib/trigger-match-scores'
 
 async function verifyAdmin() {
   const supabase = await createClient()
@@ -16,7 +17,7 @@ export async function createFundingOpportunity(formData: FormData) {
   const supabase = await verifyAdmin()
   const { data: { user } } = await supabase.auth.getUser()
 
-  const { error } = await supabase.from('funding_opportunities').insert({
+  const { data, error } = await supabase.from('funding_opportunities').insert({
     created_by: user!.id,
     title: formData.get('title') as string,
     description: (formData.get('description') as string) || null,
@@ -24,9 +25,10 @@ export async function createFundingOpportunity(formData: FormData) {
     deadline: (formData.get('deadline') as string) || null,
     source: (formData.get('source') as string) || null,
     type: (formData.get('type') as string) || 'grant',
-  })
+  }).select('id').single()
 
   if (error) redirect('/funding/new?error=' + encodeURIComponent(error.message))
+  await triggerMatchScores('opportunity', data.id)
   redirect('/funding')
 }
 
@@ -44,6 +46,7 @@ export async function updateFundingOpportunity(formData: FormData) {
   }).eq('id', id)
 
   if (error) redirect(`/funding/${id}/edit?error=` + encodeURIComponent(error.message))
+  await triggerMatchScores('opportunity', id)
   redirect('/funding')
 }
 

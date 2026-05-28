@@ -24,7 +24,7 @@ export function Sidebar({ user, isAdmin }: { user: User; isAdmin: boolean }) {
     .slice(0, 2)
 
   const navItems = isAdmin
-    ? [...baseNavItems, { href: '/admin', label: 'Admin' }]
+    ? [...baseNavItems, { href: '/admin', label: 'Admin' }, { href: '/admin/audit', label: 'Audit Log' }]
     : baseNavItems
 
   const sidebarContent = (

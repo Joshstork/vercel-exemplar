@@ -40,3 +40,21 @@ export type ProjectFunding = {
 export type ProjectFundingWithOpportunity = ProjectFunding & {
   funding_opportunities: FundingOpportunity
 }
+
+export type ProjectAuditEntry = {
+  id: string
+  project_id: string
+  action: 'INSERT' | 'UPDATE' | 'DELETE'
+  changed_by: string | null
+  old_data: Record<string, unknown> | null
+  new_data: Record<string, unknown> | null
+  changed_at: string
+}
+
+export type MatchScore = {
+  id: string
+  project_id: string
+  opportunity_id: string
+  score: number
+  calculated_at: string
+}

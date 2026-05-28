@@ -78,15 +78,23 @@ export default async function ProjectDetailPage({
           )}
         </div>
 
-        <form>
-          <input type="hidden" name="id" value={id} />
-          <button
-            formAction={deleteProject}
-            className="text-xs text-red-400 hover:text-red-600"
+        <div className="flex items-center gap-4">
+          <Link
+            href={`/projects/${id}/edit`}
+            className="text-xs text-zinc-500 hover:text-black dark:hover:text-white"
           >
-            Delete project
-          </button>
-        </form>
+            Edit
+          </Link>
+          <form>
+            <input type="hidden" name="id" value={id} />
+            <button
+              formAction={deleteProject}
+              className="text-xs text-red-400 hover:text-red-600"
+            >
+              Delete project
+            </button>
+          </form>
+        </div>
       </div>
 
       {/* Tracked funding opportunities */}

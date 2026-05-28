@@ -39,6 +39,7 @@ export default async function ProjectsPage() {
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500">Status</th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500">Budget</th>
                 <th className="px-4 py-3 text-left text-xs font-medium uppercase text-zinc-500">Created</th>
+                <th className="px-4 py-3"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
@@ -60,6 +61,14 @@ export default async function ProjectsPage() {
                   </td>
                   <td className="px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400">
                     {new Date(project.created_at).toLocaleDateString()}
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <Link
+                      href={`/projects/${project.id}/edit`}
+                      className="text-xs text-zinc-400 hover:text-black dark:hover:text-white"
+                    >
+                      Edit
+                    </Link>
                   </td>
                 </tr>
               ))}
